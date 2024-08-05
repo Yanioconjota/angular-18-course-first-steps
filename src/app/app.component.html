@@ -1,6 +1,6 @@
 <div class="top-menu">
 
-    <img class="logo"
+    <img alt="logo" class="logo"
          src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 
 </div>
@@ -13,21 +13,23 @@
 
         <p class="warn">{{courseName}} has no image yet.</p>
 
-        <img src="/assets/empty-image.png">
+        <img alt="{{courseName}}" src="/assets/empty-image.png">
 
     </ng-template>
 
-    <course-card
+    @for (course of courses; track course.id) {
+        <course-card
             (courseSelected)="onCourseSelected($event)"
-                 [course]="course" [noImageTpl]="blankImage">
+                    [course]="course" [noImageTpl]="blankImage">
 
-        <course-image [src]="course.iconUrl"></course-image>
+            <course-image [src]="course.iconUrl"></course-image>
 
-        <div class="course-description">
-            {{ course.longDescription }}
-        </div>
+            <div class="course-description">
+                {{ course.longDescription }}
+            </div>
+        </course-card>
+    }
 
-    </course-card>
 
 
 </div>
