@@ -1,85 +1,28 @@
-import {
-    AfterContentInit,
-    AfterViewInit,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output, QueryList, TemplateRef,
-    ViewChild
-} from '@angular/core';
-import {COURSES} from '../../db-data';
-import {Course} from '../model/course';
-import {CourseImageComponent} from '../course-image/course-image.component';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Course } from "../model/course";
 
 @Component({
-    selector: 'course-card',
-    templateUrl: './course-card.component.html',
-    styleUrls: ['./course-card.component.css']
+  selector: "course-card",
+  templateUrl: "./course-card.component.html",
+  styleUrls: ["./course-card.component.css"],
 })
-export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentInit {
+export class CourseCardComponent implements OnInit {
+  @Input()
+  course: Course;
 
-    @Input()
-    course: Course;
+  @Input({ required: true })
+  index: number;
+  @Input()
+  count: string;
 
-    @Input()
-    noImageTpl: TemplateRef<any>;
+  @Output("courseSelected")
+  courseEmitter = new EventEmitter<Course>();
 
-    @Input()
-    cardIndex: number;
+  constructor() {}
 
-    @Output('courseSelected')
-    courseEmitter = new EventEmitter<Course>();
+  ngOnInit() {}
 
-
-    @ContentChildren(CourseImageComponent, {read: ElementRef})
-    images: QueryList<ElementRef>;
-
-
-    constructor() {
-    }
-
-    ngAfterViewInit() {
-
-    }
-
-    ngAfterContentInit() {
-
-        console.log(this.images);
-
-    }
-
-
-    ngOnInit() {
-
-    }
-
-    isImageVisible() {
-        return this.course && this.course.iconUrl;
-    }
-
-    onCourseViewed() {
-
-        this.courseEmitter.emit(this.course);
-
-    }
-
-    cardClasses() {
-        if (this.course.category == 'BEGINNER') {
-            return 'beginner';
-        }
-    }
-
-    cardStyles() {
-        return {
-            'background-image': 'url(' + this.course.iconUrl + ')'
-
-        };
-    }
-
-
-
+  onCourseViewed() {
+    this.courseEmitter.emit(this.course);
+  }
 }

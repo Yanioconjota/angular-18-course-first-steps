@@ -1,37 +1,30 @@
 <div class="top-menu">
 
-    <img alt="logo" class="logo"
-         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+  <img alt="logo" class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 
 </div>
 
 
 
-<div class="courses" *ngIf="courses[0] as course">
+<div class="courses">
 
-    <ng-template #blankImage let-courseName="description">
+  <h1 *ngIf="courses.length > 0">There are {{courses.length}} courses available</h1>
 
-        <p class="warn">{{courseName}} has no image yet.</p>
+  @for (course of courses; track course.id;
+        let index = $index;
+        let count = $count;
+        let first = $first;
+        let last = $last;
+        let even = $even;
+        let odd = $odd;) {
+    <course-card (courseSelected)="onCourseSelected($event)"
+    [index]="index" [course]="course" [count]="count"
+    [class.is-even]="even" [class.is-odd]="odd"
+    [class.is-first]="first" [class.is-last]="last"/>
+  }
 
-        <img alt="{{courseName}}" src="/assets/empty-image.png">
-
-    </ng-template>
-
-    @for (course of courses; track course.id) {
-        <course-card
-            (courseSelected)="onCourseSelected($event)"
-                    [course]="course" [noImageTpl]="blankImage">
-
-            <course-image [src]="course.iconUrl"></course-image>
-
-            <div class="course-description">
-                {{ course.longDescription }}
-            </div>
-        </course-card>
-    }
-
-
+  @empty {
+    <h1>No Courses found!</h1>
+  }
 
 </div>
-
-
