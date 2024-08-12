@@ -1,16 +1,13 @@
 <div class="top-menu">
-
   <img alt="logo" class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
-
 </div>
 
 
 
 <div class="courses">
-
   <h1 *ngIf="courses.length > 0">There are {{courses.length}} courses available</h1>
 
-  @for (course of courses; track course.id;
+  @for (course of courses; track trackCourse;
         let index = $index;
         let count = $count;
         let first = $first;
@@ -28,3 +25,15 @@
   }
 
 </div>
+
+<!-- <div class="courses">
+  <course-card (courseSelected)="onCourseSelected($event)" *ngFor="let course of courses let index = index;
+    let count = count;
+    let first = first;
+    let last = last;
+    let even = even;
+    let odd = odd;"
+    [index]="index" [course]="course" [count]="count"
+    [class.is-even]="even" [class.is-odd]="odd"
+    [class.is-first]="first" [class.is-last]="last"/>
+</div> -->

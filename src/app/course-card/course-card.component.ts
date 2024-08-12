@@ -17,6 +17,13 @@ export class CourseCardComponent implements OnInit {
 
   @Output("courseSelected")
   courseEmitter = new EventEmitter<Course>();
+  get isForNoobs(): boolean {
+    return this.course.category === 'BEGINNER';
+  }
+
+  get cardClasses(): string {
+    if(this.isForNoobs) { return 'beginner'};
+  }
 
   constructor() {}
 

@@ -1,10 +1,22 @@
-<div class="course-card" *ngIf="course" #container>
+<div class="course-card" [ngClass]="cardClasses" *ngIf="course" #container>
 
   <div class="course-title">
-    {{ index + 1}}/{{count}} {{ course.description }}
+    {{ index + 1 + '/' + count + ' ' + course.description }}
   </div>
 
-  <img [src]="course.iconUrl" alt="Angular Logo" width="300">
+  @if(course.id === 1) {
+    <p>Remember course {{course.id}} is necessary to move on!</p>
+  } @else if(course.iconUrl) {
+    <img [src]="course.iconUrl" alt="Angular Logo" width="300">
+  } @else {
+    <h2>No Image Available!</h2>
+  }
+
+  <p *ngIf="isForNoobs; else msg"><strong>4 Noobs</strong></p>
+
+  <ng-template #msg>
+    <p><strong>Hero on the making</strong></p>
+  </ng-template>
 
   <div class="course-description">
     {{ course.longDescription }}
