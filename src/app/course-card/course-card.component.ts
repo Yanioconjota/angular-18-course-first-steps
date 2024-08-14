@@ -25,6 +25,10 @@ export class CourseCardComponent implements OnInit {
     if(this.isForNoobs) { return 'beginner'};
   }
 
+  get cardStyles(): object {
+    return {'text-transform': 'uppercase'};
+  }
+
   constructor() {}
 
   ngOnInit() {}

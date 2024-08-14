@@ -1,28 +1,60 @@
-<div class="course-card" [ngClass]="cardClasses" *ngIf="course" #container>
+@if (course) {
+  <!-- Alternatively we could wrap everything inside an <ng-container *ngIf="course">  -->
+  <div class="course-card" [ngClass]="cardClasses" #container>
 
-  <div class="course-title">
-    {{ index + 1 + '/' + count + ' ' + course.description }}
+    <div class="course-title" [ngStyle]="cardStyles">
+      {{ index + 1 + '/' + count + ' ' + course.description }}
+    </div>
+
+    @if(course.id === 1) {
+      <p>Remember course {{course.id}} is necessary to move on!</p>
+    } @else if(course.iconUrl) {
+      <img [src]="course.iconUrl" alt="Angular Logo" width="300">
+    } @else {
+      <h2 [style.text-decoration]="'underline'">No Image Available!</h2>
+    }
+
+    <p *ngIf="isForNoobs; else msg"><strong>4 Noobs</strong></p>
+
+    <ng-template #msg>
+      <p><strong>Hero on the making</strong></p>
+    </ng-template>
+
+    <div class="course-category">
+      @switch (course.category) {
+        @case("BEGINNER") {
+          <div class="category">BEGINNER</div>
+        }
+        @case("INTERMEDIATE") {
+          <div class="category">INTERMEDIATE</div>
+        }
+        @case("ADVANCED") {
+          <div class="category">ADVANCED</div>
+        }
+        @default {
+          <div class="category">UNKNOWN</div>
+        }
+      }
+    </div>
+
+    <!-- Old Syntax
+    <ng-container [ngSwitch]="course.category">
+      <div class="course-category" >
+        <div *ngSwitchCase="'BEGINNER'" class="category">BEGINNER</div>
+        <div *ngSwitchCase="'INTERMEDIATE'" class="category">INTERMEDIATE</div>
+        <div *ngSwitchCase="'ADVANCED'" class="category">ADVANCED</div>
+        <div *ngSwitchDefault class="category">UNKNOWN</div>
+      </div>
+    </ng-container>
+    -->
+
+
+    <div class="course-description">
+      {{ course.longDescription }}
+      {{count}}
+    </div>
+
+    <button (click)="onCourseViewed()">View Course</button>
+
   </div>
-
-  @if(course.id === 1) {
-    <p>Remember course {{course.id}} is necessary to move on!</p>
-  } @else if(course.iconUrl) {
-    <img [src]="course.iconUrl" alt="Angular Logo" width="300">
-  } @else {
-    <h2>No Image Available!</h2>
-  }
-
-  <p *ngIf="isForNoobs; else msg"><strong>4 Noobs</strong></p>
-
-  <ng-template #msg>
-    <p><strong>Hero on the making</strong></p>
-  </ng-template>
-
-  <div class="course-description">
-    {{ course.longDescription }}
-    {{count}}
-  </div>
-
-  <button (click)="onCourseViewed()">View Course</button>
-
-</div>
+}
