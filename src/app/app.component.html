@@ -2,10 +2,25 @@
   <img alt="logo" class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 </div>
 
-
+<div class="courses">
+  <h2>Pipes examples</h2>
+  <p>Date pipe MMM dd yyyy format: {{startDate | date: 'MMM dd yyyy'}}</p>
+  <hr>
+  <p>Currency pipe ARS$ format: {{ price }} | {{ price | currency: 'ARS$' }}</p>
+  <hr>
+  <p>Percentage {{rate}} | {{ rate | percent }}</p>
+  <hr>
+  <p>There are also pipes to handle arrays like passing slice or json</p>
+  <hr>
+  <p>For handling objects we could use <em><strong>keyvalue</strong></em></p>
+  @for (pair of courseObj | keyvalue; track pair.id) {
+    <div><em>{{ pair. key }}</em>: <strong>{{pair.value}}</strong></div>
+  }
+</div>
 
 <div class="courses">
-  <h1 *ngIf="courses.length > 0">There are {{courses.length}} courses available</h1>
+
+  <h2 *ngIf="courses.length > 0">There are {{courses.length}} courses available</h2>
 
   @for (course of courses; track trackCourse;
         let index = $index;
@@ -21,7 +36,7 @@
   }
 
   @empty {
-    <h1>No Courses found!</h1>
+    <h2>No Courses found!</h2>
   }
 
 </div>

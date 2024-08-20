@@ -9,6 +9,11 @@ import { Course } from "./model/course";
 })
 export class AppComponent {
   courses = COURSES;
+  price = 9.999242;
+  rate = 0.67;
+  courseObj = COURSES[0];
+
+  startDate = new Date(2000, 0, 1);
 
   constructor() {}
 
