@@ -1,0 +1,13 @@
+<div class="top-menu">
+  <img alt="logo" class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+  <mat-form-field>
+    <mat-select [(value)]="selected" (selectionChange)="onSelectionChange($event)">
+      @for (item of content; track item.value) {
+        <mat-option [value]="item.value">
+          {{ item.value }}
+        </mat-option>
+      }
+
+    </mat-select>
+  </mat-form-field>
+</div>

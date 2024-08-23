@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { COURSES } from "../db-data";
 import { Course } from "./model/course";
+import { CourseSections } from "./shared/enums/generic.enum";
 
 @Component({
   selector: "app-root",
@@ -12,8 +13,9 @@ export class AppComponent {
   price = 9.999242;
   rate = 0.67;
   courseObj = COURSES[0];
-
   startDate = new Date(2000, 0, 1);
+  selectedSection: CourseSections = CourseSections.ComponentDirectivesAndPipes;
+  CourseSections = CourseSections;
 
   constructor() {}
 
@@ -23,5 +25,10 @@ export class AppComponent {
 
   trackCourse(id: number, course: Course): number {
     return course.id;
+  }
+
+  handleSelectedValue(value: CourseSections) {
+    this.selectedSection = value;
+    console.log('Selected value:', value);
   }
 }

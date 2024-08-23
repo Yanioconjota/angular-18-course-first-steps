@@ -1,0 +1,17 @@
+.top-menu {
+  background: #1976d2;
+  padding: 2px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-menu .mat-mdc-form-field-type-mat-select {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.logo {
+  max-height: 55px;
+  margin-right: 1rem;
+}
