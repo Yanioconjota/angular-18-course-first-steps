@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CourseSections } from '../../enums/generic.enum';
 import { MatSelectChange } from '@angular/material/select';
 
@@ -8,13 +8,14 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  selected = CourseSections.ComponentDirectivesAndPipes;
+  @Input() selected;
   @Output() selectedValueChange = new EventEmitter<string>();
 
   content = [
-    {value: CourseSections.ComponentDirectivesAndPipes },
+    {value: CourseSections.ComponentCoreDirectives },
+    {value: CourseSections.PipesExamples },
     {value: CourseSections.LocalTemplateQuerying },
-    {value: CourseSections.ContentProjection },
+    {value: CourseSections.ViewChildren },
   ];
 
   onSelectionChange(event: MatSelectChange) {

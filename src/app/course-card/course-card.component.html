@@ -3,7 +3,9 @@
   <div class="course-card" [ngClass]="cardClasses" #container>
 
     <div class="course-title" [ngStyle]="cardStyles">
-      {{ index + 1 + '/' + count + ' ' + course.description }}
+      @if (index >= 0 ) {
+        {{ index + 1 + '/' + count + ' ' }}
+      } {{course.description}}
     </div>
 
     @if(course.id === 1) {

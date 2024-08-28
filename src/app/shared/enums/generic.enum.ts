@@ -1,5 +1,7 @@
 export enum CourseSections {
-  ComponentDirectivesAndPipes = 'Components, Directives and Pipes',
+  ComponentCoreDirectives = 'Components Core Directives',
+  PipesExamples = 'Some Pipes Examples',
   LocalTemplateQuerying = 'Local Template Querying',
-  ContentProjection = 'Content Projection'
+  ViewChildren = 'ViewChildren Query Configuration',
+
 }

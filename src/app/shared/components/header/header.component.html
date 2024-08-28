@@ -3,7 +3,7 @@
   <mat-form-field>
     <mat-select [(value)]="selected" (selectionChange)="onSelectionChange($event)">
       @for (item of content; track item.value) {
-        <mat-option [value]="item.value">
+        <mat-option [value]="item.value || selected">
           {{ item.value }}
         </mat-option>
       }

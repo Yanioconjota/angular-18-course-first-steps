@@ -1,23 +1,7 @@
-<header (selectedValueChange)="handleSelectedValue($event)"></header>
+<header (selectedValueChange)="handleSelectedValue($event)" [selected]="selectedSection"></header>
 
 @switch (selectedSection) {
-  @case(CourseSections.ComponentDirectivesAndPipes) {
-    <div class="courses">
-      <h2>Pipes examples</h2>
-      <p>Date pipe MMM dd yyyy format: {{startDate | date: 'MMM dd yyyy'}}</p>
-      <hr>
-      <p>Currency pipe ARS$ format: {{ price }} | {{ price | currency: 'ARS$' }}</p>
-      <hr>
-      <p>Percentage {{rate}} | {{ rate | percent }}</p>
-      <hr>
-      <p>There are also pipes to handle arrays like passing slice or json</p>
-      <hr>
-      <p>For handling objects we could use <em><strong>keyvalue</strong></em></p>
-      @for (pair of courseObj | keyvalue; track pair.id) {
-        <div><em>{{ pair. key }}</em>: <strong>{{pair.value}}</strong></div>
-      }
-    </div>
-
+  @case(CourseSections.ComponentCoreDirectives) {
     <div class="courses">
 
       <h2 *ngIf="courses.length > 0">There are {{courses.length}} courses available</h2>
@@ -41,21 +25,64 @@
 
     </div>
 
-    <!-- <div class="courses">
-      <course-card (courseSelected)="onCourseSelected($event)" *ngFor="let course of courses let index = index;
-        let count = count;
-        let first = first;
-        let last = last;
-        let even = even;
-        let odd = odd;"
-        [index]="index" [course]="course" [count]="count"
-        [class.is-even]="even" [class.is-odd]="odd"
-        [class.is-first]="first" [class.is-last]="last"/>
+  <!-- <div class="courses">
+    <course-card (courseSelected)="onCourseSelected($event)" *ngFor="let course of courses let index = index;
+      let count = count;
+      let first = first;
+      let last = last;
+      let even = even;
+      let odd = odd;"
+      [index]="index" [course]="course" [count]="count"
+      [class.is-even]="even" [class.is-odd]="odd"
+      [class.is-first]="first" [class.is-last]="last"/>
     </div> -->
   }
 
-  @case (CourseSections.ContentProjection) {
+  @case(CourseSections.PipesExamples) {
+    <div class="courses">
+      <h2>Pipes examples</h2>
+      <p>Date pipe MMM dd yyyy format: {{startDate | date: 'MMM dd yyyy'}}</p>
+      <hr>
+      <p>Currency pipe ARS$ format: {{ price }} | {{ price | currency: 'ARS$' }}</p>
+      <hr>
+      <p>Percentage {{rate}} | {{ rate | percent }}</p>
+      <hr>
+      <p>There are also pipes to handle arrays like passing slice or json</p>
+      <hr>
+      <p>For handling objects we could use <em><strong>keyvalue</strong></em></p>
+      @for (pair of courseObj | keyvalue; track pair.id) {
+        <div><em>{{ pair. key }}</em>: <strong>{{pair.value}}</strong></div>
+      }
+    </div>
+  }
 
+  @case (CourseSections.ViewChildren) {
+    <div class="courses" #container>
+      <course-card #cardRef1 (courseSelected)="onCourseSelected($event)" [course]="courses[1]"/>
+      <course-card #cardRef2 (courseSelected)="onCourseSelected($event)" [course]="courses[2]"/>
+      <p>The <code>&#64;ViewChild</code> decorator is used to access a child component, directive, or DOM element from
+        the parent component class.</p>
+      <p><code>&#64;ViewChild(&#39;container&#39;) container: ElementRef;</code>:</p>
+      <p>This line declares a property named <code>container</code> of type <code>ElementRef</code>. The
+        <code>&#64;ViewChild</code> decorator is used to query the template for an element with the template reference
+        variable <code>&#35;container</code>. The <code>ElementRef</code> type provides a way to directly interact with
+        the DOM element, allowing you to manipulate it or read its properties.</p>
+      <p><code>&#64;ViewChild(&#39;cardRef1&#39;) cardComponent: CourseCardComponent;</code>:</p>
+      <p>Here, the <code>&#64;ViewChild</code> decorator is used to query the template for an element with the template
+        reference variable <code>&#35;cardRef1</code>. The <code>cardComponent</code> property is of type
+        <code>CourseCardComponent</code>, which means it will hold a reference to the instance of the
+        <code>CourseCardComponent</code> class. This allows you to call methods or access properties of the
+        <code>CourseCardComponent</code> directly from the parent component.</p>
+      <p><code>&#64;ViewChild(&#39;cardRef2&#39;, &#123;read: ElementRef&#125;) cardElementRef: ElementRef;</code>:</p>
+      <p>This line uses the <code>&#64;ViewChild</code> decorator to query the template for an element with the template
+        reference variable <code>&#35;cardRef2</code>. The <code>&#123;read: ElementRef&#125;</code> option specifies
+        that the <code>ElementRef</code> of the element should be injected, rather than the component instance. This is
+        useful when you need to interact with the DOM element itself rather than the Angular component.</p>
+      <p>In summary, the <code>&#64;ViewChild</code> decorator is a powerful feature in Angular that allows you to
+        access and interact with child components or DOM elements directly from the parent component class. This can be
+        particularly useful for tasks such as manipulating the DOM, calling methods on child components, or reading
+        properties from child components.</p>
+    </div>
   }
 }
 
