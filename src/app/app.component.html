@@ -56,7 +56,7 @@
     </div>
   }
 
-  @case (CourseSections.ViewChildren) {
+  @case (CourseSections.ViewChild) {
     <div class="courses" #container>
       <course-card #cardRef1 (courseSelected)="onCourseSelected($event)" [course]="courses[1]"/>
       <course-card #cardRef2 (courseSelected)="onCourseSelected($event)" [course]="courses[2]"/>
@@ -82,6 +82,25 @@
         access and interact with child components or DOM elements directly from the parent component class. This can be
         particularly useful for tasks such as manipulating the DOM, calling methods on child components, or reading
         properties from child components.</p>
+      <p>If you need to access the data with any Angular lifecicle, ngAfterViewInit is the best choice, since it will have all the data rendered on the element linked to the <code>&#64;ViewChild</code> decorator, however, is not advised to edit the data on that cycle, ex: <code>this.courses&#91;1&#93;.description &#61; &#39;test&#39;</code> since it will must certainly cause the common error: <code [style.color]="'red'">ERROR RuntimeError: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'RxJs In Practice Course'. Current value: 'test'</code></p>
+      <p>Is important to understand that the template querying is restricted to the template itself, we can't query a reference inside a template from another component inside the main component.</p>
+    </div>
+  }
+
+  @case(CourseSections.ViewChildren) {
+    <div class="courses">
+      <button (click)="onCoursesEdited()">Add Course</button>
+      @for (course of courses; track trackCourse;
+            let index = $index;
+            let count = $count;
+            let first = $first;
+            let last = $last;
+            let even = $even;
+            let odd = $odd;) {
+        <course-card (courseSelected)="onCourseSelected($event)"
+        [index]="index" [course]="course" [count]="count"/>
+      }
+
     </div>
   }
 }

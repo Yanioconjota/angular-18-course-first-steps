@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { COURSES } from "../db-data";
 import { Course } from "./model/course";
 import { CourseSections } from "./shared/enums/generic.enum";
@@ -9,7 +9,7 @@ import { CourseCardComponent } from "./course-card/course-card.component";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
   courses = COURSES;
   price = 9.999242;
   rate = 0.67;
@@ -25,9 +25,37 @@ export class AppComponent {
   cardComponent: CourseCardComponent;
   @ViewChild('cardRef2', {read: ElementRef})
   cardElementRef: ElementRef;
+  @ViewChildren(CourseCardComponent, {read: ElementRef})
+  cards: QueryList<ElementRef>;
 
 
-  constructor() {}
+  constructor() {
+    console.log('constructor this.cardElementRef: ', this.cardElementRef);
+  }
+
+  ngOnInit(): void {
+    console.log('OnInit this.cardElementRef: ', this.cardElementRef);
+  }
+
+  ngAfterViewInit(): void {
+    console.log('AfterViewInit this.cardElementRef: ', this.cardElementRef);
+    //this.courses[1].description = 'test';
+    this.cards.changes.subscribe(
+      cards => console.log(cards)
+    );
+  }
+
+  onCoursesEdited(): void {
+    const course: Course = {
+      id: this.courses.length,
+      description: 'An awesome new course',
+      iconUrl:  '',
+      longDescription:  'An awesome new course for every level',
+      category: 'BEGINNER',
+      lessonsCount: 13,
+    }
+    this.courses.push({course});
+  }
 
   onCourseSelected(course: Course) {
     if (!this.cardComponent) {

@@ -14,7 +14,7 @@ export class HeaderComponent {
   content = [
     {value: CourseSections.ComponentCoreDirectives },
     {value: CourseSections.PipesExamples },
-    {value: CourseSections.LocalTemplateQuerying },
+    {value: CourseSections.ViewChild },
     {value: CourseSections.ViewChildren },
   ];
 
