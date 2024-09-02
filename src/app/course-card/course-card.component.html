@@ -10,9 +10,9 @@
 
     @if(course.id === 1) {
       <p>Remember course {{course.id}} is necessary to move on!</p>
-    } @else if(course.iconUrl) {
+    } @else if(course.iconUrl && !image) {
       <img [src]="course.iconUrl" alt="Angular Logo" width="300">
-    } @else {
+    } @else if(!image){
       <h2 [style.text-decoration]="'underline'">No Image Available!</h2>
     }
 
@@ -38,6 +38,20 @@
         }
       }
     </div>
+
+    <!-- Lesson count received trough content projection -->
+     <ng-content select=".btn"></ng-content>
+     <ng-content select=".course-image"></ng-content>
+     @if (contentProjectionToggle === 'h5') {
+      <ng-container>
+        <h5 class="sub-title">Lessons: {{course.lessonsCount}}</h5>
+      </ng-container>
+     } @else {
+       <ng-container>
+         <h6>Enjoy your course</h6>
+       </ng-container>
+     }
+
 
     <!-- Old Syntax
     <ng-container [ngSwitch]="course.category">

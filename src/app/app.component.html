@@ -25,17 +25,61 @@
 
     </div>
 
-  <!-- <div class="courses">
-    <course-card (courseSelected)="onCourseSelected($event)" *ngFor="let course of courses let index = index;
-      let count = count;
-      let first = first;
-      let last = last;
-      let even = even;
-      let odd = odd;"
-      [index]="index" [course]="course" [count]="count"
-      [class.is-even]="even" [class.is-odd]="odd"
-      [class.is-first]="first" [class.is-last]="last"/>
-    </div> -->
+    <div class="wrapper mb-20">
+      <p>Although the new syntax for core directives is encouraged, the old syntax is still permitted.</p>
+      <code>&lt;div class=&quot;courses&quot;&gt;</code><br/>
+      <code>&nbsp;&nbsp;&lt;course-card (courseSelected)=&quot;onCourseSelected(&#36;event)&quot; *ngFor=&quot;let course of courses let index = index; let count = count; let first = first; let last = last; let even = even; let odd = odd;&quot;</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;[index]=&quot;index&quot; [course]=&quot;course&quot; [count]=&quot;count&quot;</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;[class.is-even]=&quot;even&quot; [class.is-odd]=&quot;odd&quot;</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;[class.is-first]=&quot;first&quot; [class.is-last]=&quot;last&quot;/&gt;</code><br/>
+      <code>&lt;/div&gt;</code>
+    </div>
+
+    <div class="wrapper mb-20">
+      <p>
+        The choice between using the traditional *ngIf and the newer &#64;if syntax in Angular depends on several factors such as the version of Angular you're using, your team's familiarity with Angular, and the specific needs of your project.
+      </p>
+      <h5>Traditional *ngIf Directive</h5>
+      <ul>
+        <li>
+          <strong>Compatibility</strong>: Works with all versions of Angular. It's widely used and well-documented.
+        </li>
+        <li>
+          <strong>Flexibility</strong>: Allows complex expressions directly in the template and can be combined easily with other directives.
+        </li>
+        <li>
+          <strong>Community Support</strong>: Since it's been around for longer, there are more resources, examples, and community knowledge available.
+        </li>
+      </ul>
+      <h5>New &#64;if Syntax (Introduced in Angular 18)</h5>
+      <ul>
+        <li>
+          <strong>Simplicity and Readability</strong>: The syntax is more intuitive, especially for developers with a background in other programming languages that use similar conditional syntax.
+        </li>
+        <li>
+          <strong>Cleaner Templates</strong>: Reduces the syntactic noise in templates by eliminating the need for the asterisk * and making conditionals look more like standard JavaScript.
+        </li>
+        <li>
+          <strong>Modern Approach</strong>: As Angular evolves, this syntax might become the standard in future versions, suggesting a forward-looking approach.
+        </li>
+      </ul>
+      <h5>Recommendations</h5>
+      <ol>
+        <li>
+          <strong>New Projects on Angular 18+</strong>:  If you're starting a new project with Angular 18 or later, consider using the &#64;if syntax for its simplicity and modern approach. It could help future-proof your project and align with Angular's evolving standards.
+        </li>
+        <li>
+          <strong>Existing Projects or Lower Versions</strong>: Continue using *ngIf for projects that are on older versions of Angular or where you have a large base of existing code that uses *ngIf. Transitioning to &#64;f could introduce inconsistency and require additional refactoring.
+        </li>
+        <li>
+          <strong>Team Expertise</strong>: Consider the familiarity and comfort level of your development team with Angular. If your team is more comfortable with the traditional *ngIf, the benefits of switching might not outweigh the costs of the learning curve.
+        </li>
+      </ol>
+      <p>
+        Ultimately, the best practice would depend on your specific situation. Both directives are supported and recommended, depending on the context and requirements of your project. Always ensure that whatever choice you make aligns with your team's skills, project's Angular version, and future maintenance plans. Here's a link to the Angular documentation for a deeper dive into these directives
+      </p>
+    </div>
+
   }
 
   @case(CourseSections.PipesExamples) {
@@ -100,6 +144,47 @@
         <course-card (courseSelected)="onCourseSelected($event)"
         [index]="index" [course]="course" [count]="count"/>
       }
+
+    </div>
+  }
+
+  @case (CourseSections.ContentProjection) {
+    @if(courses[1]; as course) {
+      <div class="courses">
+        <course-card (courseSelected)="onCourseSelected($event)"
+                      [course]="course"
+                      [contentProjectionToggle]="contentProjectionToggle">
+          <div class="course-image" #courseImage>
+            <img [src]="course.iconUrl" alt="Angular Logo" width="300">
+          </div>
+          <button class="btn" #btn (click)="onToggle()">Toggle content</button>
+        </course-card>
+      </div>
+    }
+    <div class="wrapper mb-20">
+      <p>The following example uses <code>&#64;ContentChild</code> decorator. This decorator is used to query and reference a child element or component that is projected into the component using content projection (i.e., <code>&#60;ng-content&#62;</code>).</p>
+
+      <p><code>&#64;ContentChild(&#39;courseImage&#39;)</code></p>
+
+      <p>The <code>&#64;ContentChild</code> decorator is used to query the projected content for an element or component with the template reference variable <code>&#35;courseImage</code>. This means that the parent component can pass content to this component, and the <code>&#64;ContentChild</code> decorator will look for an element with the specified reference within that projected content.</p>
+
+      <p><strong>Key Points about the Scope of <code>&#64;ContentChild</code></strong></p>
+
+      <p><strong>Content Projection:</strong></p>
+
+      <p><code>&#64;ContentChild</code> is specifically designed to work with content projection. It queries elements or components that are passed into the component via <code>&#60;ng-content&#62;</code> slots.</p>
+
+      <p><strong>Single Element or Component:</strong></p>
+
+      <p><code>&#64;ContentChild</code> retrieves a single element or component that matches the selector. If multiple elements or components match the selector, only the first one is returned.</p>
+
+      <p><strong>Template Reference Variables:</strong></p>
+
+      <p>The selector used with <code>&#64;ContentChild</code> can be a template reference variable (e.g., <code>&#35;myElement</code>), a component type, or a directive type.</p>
+
+      <p><strong>Lifecycle Hook:</strong></p>
+
+      <p>The queried element or component is available after the content has been projected and initialized, which is typically done in the <code>ngAfterContentInit</code> lifecycle hook.</p>
 
     </div>
   }

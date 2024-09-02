@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, Component, ContentChild, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from "@angular/core";
 import { Course } from "../model/course";
 
 @Component({
@@ -7,7 +7,7 @@ import { Course } from "../model/course";
   styleUrls: ["./course-card.component.css"],
   encapsulation: ViewEncapsulation.None
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent implements OnInit, AfterViewInit {
   @Input()
   course: Course;
 
@@ -15,9 +15,18 @@ export class CourseCardComponent implements OnInit {
   index: number;
   @Input()
   count: string;
+  @Input()
+  contentProjectionToggle: string;
 
   @Output("courseSelected")
   courseEmitter = new EventEmitter<Course>();
+
+  @ViewChild('btn')
+  btnToggle;
+
+  @ContentChild('courseImage')
+  image;
+
   get isForNoobs(): boolean {
     return this.course.category === 'BEGINNER';
   }
@@ -33,6 +42,10 @@ export class CourseCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    console.log(this.image);
+  }
 
   onCourseViewed() {
     this.courseEmitter.emit(this.course);

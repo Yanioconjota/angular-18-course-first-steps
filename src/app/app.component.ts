@@ -15,8 +15,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   rate = 0.67;
   courseObj = COURSES[0];
   startDate = new Date(2000, 0, 1);
-  selectedSection: CourseSections = CourseSections.ViewChildren;
+  selectedSection: CourseSections = CourseSections.ContentProjection;
   CourseSections = CourseSections;
+  contentProjectionToggle = 'h5';
 
   @ViewChild('container')
   container: ElementRef;
@@ -75,4 +76,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.selectedSection = value;
     console.log('Selected value:', value);
   }
+
+  onToggle() {
+    this.contentProjectionToggle = this.contentProjectionToggle === 'h5' ? 'h6' : 'h5';
+  }
+
 }

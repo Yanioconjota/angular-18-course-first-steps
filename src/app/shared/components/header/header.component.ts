@@ -16,6 +16,7 @@ export class HeaderComponent {
     {value: CourseSections.PipesExamples },
     {value: CourseSections.ViewChild },
     {value: CourseSections.ViewChildren },
+    {value: CourseSections.ContentProjection },
   ];
 
   onSelectionChange(event: MatSelectChange) {
