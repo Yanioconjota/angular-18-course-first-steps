@@ -18,6 +18,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedSection: CourseSections = CourseSections.ContentProjection;
   CourseSections = CourseSections;
   contentProjectionToggle = 'h5';
+  iconUrl1 = 'https://s3-us-west-1.amazonaws.com/angular-university/course-images/rxjs-in-practice-course.png';
+  iconUrl2 = 'https://angular-academy.s3.amazonaws.com/thumbnails/angular2-for-beginners-small-v2.png';
 
   @ViewChild('container')
   container: ElementRef;
@@ -79,6 +81,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onToggle() {
     this.contentProjectionToggle = this.contentProjectionToggle === 'h5' ? 'h6' : 'h5';
+    //this.courses[1].iconUrl = this.courses[1].iconUrl === this.iconUrl2 ? this.iconUrl1 : this.iconUrl2;
   }
 
 }

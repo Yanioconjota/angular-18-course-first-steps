@@ -11,7 +11,7 @@
     @if(course.id === 1) {
       <p>Remember course {{course.id}} is necessary to move on!</p>
     } @else if(course.iconUrl && !image) {
-      <img [src]="course.iconUrl" alt="Angular Logo" width="300">
+      <course-image [imageUrl]="course.iconUrl"></course-image>
     } @else if(!image){
       <h2 [style.text-decoration]="'underline'">No Image Available!</h2>
     }
@@ -41,6 +41,8 @@
 
     <!-- Lesson count received trough content projection -->
      <ng-content select=".btn"></ng-content>
+
+     <!-- Image received through #courseImage reference -->
      <ng-content select=".course-image"></ng-content>
      @if (contentProjectionToggle === 'h5') {
       <ng-container>
