@@ -156,15 +156,10 @@
           <img src="/assets/empty-image.png" alt="">
         </ng-template>
 
-        <ng-content *ngTemplateOutlet="blankImage; context: {description: course.description}">
-
-        </ng-content>
-        <hr>
-        <hr>
-
         <course-card (courseSelected)="onCourseSelected($event)"
                       [course]="course"
-                      [contentProjectionToggle]="contentProjectionToggle">
+                      [contentProjectionToggle]="contentProjectionToggle"
+                      [noImageTpl]="blankImage">
           <button class="btn" #btn (click)="onToggle()">Toggle content</button>
         </course-card>
       </div>
