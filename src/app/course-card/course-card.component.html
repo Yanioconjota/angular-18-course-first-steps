@@ -8,13 +8,6 @@
       } {{course.description}}
     </div>
 
-    <ng-template #blankImage>
-      <p class="warn">No image available</p>
-      <img src="/assets/empty-image.png" alt="">
-
-
-    </ng-template>
-
     <ng-content select=".course-image"
                 *ngIf="course.iconUrl; else blankImage"></ng-content>
 
