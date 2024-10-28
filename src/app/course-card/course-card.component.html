@@ -8,19 +8,15 @@
       } {{course.description}}
     </div>
 
-    @if(course.id === 1) {
-      <p>Remember course {{course.id}} is necessary to move on!</p>
-    } @else if(course.iconUrl && !image) {
-      <course-image [imageUrl]="course.iconUrl"></course-image>
-    } @else if(!image){
-      <h2 [style.text-decoration]="'underline'">No Image Available!</h2>
-    }
+    <ng-template #blankImage>
+      <p class="warn">No image available</p>
+      <img src="/assets/empty-image.png" alt="">
 
-    <p *ngIf="isForNoobs; else msg"><strong>4 Noobs</strong></p>
 
-    <ng-template #msg>
-      <p><strong>Hero on the making</strong></p>
     </ng-template>
+
+    <ng-content select=".course-image"
+                *ngIf="course.iconUrl; else blankImage"></ng-content>
 
     <div class="course-category">
       @switch (course.category) {
@@ -38,33 +34,6 @@
         }
       }
     </div>
-
-    <!-- Lesson count received trough content projection -->
-     <ng-content select=".btn"></ng-content>
-
-     <!-- Image received through #courseImage reference -->
-     <ng-content select=".course-image"></ng-content>
-     @if (contentProjectionToggle === 'h5') {
-      <ng-container>
-        <h5 class="sub-title">Lessons: {{course.lessonsCount}}</h5>
-      </ng-container>
-     } @else {
-       <ng-container>
-         <h6>Enjoy your course</h6>
-       </ng-container>
-     }
-
-
-    <!-- Old Syntax
-    <ng-container [ngSwitch]="course.category">
-      <div class="course-category" >
-        <div *ngSwitchCase="'BEGINNER'" class="category">BEGINNER</div>
-        <div *ngSwitchCase="'INTERMEDIATE'" class="category">INTERMEDIATE</div>
-        <div *ngSwitchCase="'ADVANCED'" class="category">ADVANCED</div>
-        <div *ngSwitchDefault class="category">UNKNOWN</div>
-      </div>
-    </ng-container>
-    -->
 
 
     <div class="course-description">

@@ -33,7 +33,7 @@ export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentI
   }
 
   get cardClasses(): string {
-    if(this.isForNoobs) { return 'beginner'};
+    if(this.isForNoobs) { return 'beginner'} else { return ''};
   }
 
   get cardStyles(): object {
@@ -42,7 +42,7 @@ export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentI
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() { /* TODO document why this method 'ngOnInit' is empty */ }
 
   ngAfterViewInit(): void {
     console.log('this.image', this.image);
